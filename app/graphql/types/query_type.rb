@@ -11,4 +11,5 @@ class Types::QueryType < Types::BaseObject
     Rails.logger.info context[:time]
     "Hello #{name}!"
   end
+
 end
