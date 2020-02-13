@@ -4,8 +4,11 @@ class Types::QueryType < Types::BaseObject
 
   # TODO: remove me
   field :test_field, String, null: false,
-    description: "An example field added by the generator"
-  def test_field
-    "Hello World!"
+    description: "An example field added by the generator" do
+      argument :name, String, required: true
+    end
+  def test_field(name:)
+    Rails.logger.info context[:time]
+    "Hello #{name}!"
   end
 end
