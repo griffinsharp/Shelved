@@ -17,7 +17,7 @@ class Types::QueryType < Types::BaseObject
     argument :id, ID, required: true
   end
 
-  # Field of author with argument ID (Resolver Method for Author Field)
+  # Field of author with argument ID ("Resolver Method" for Author Field)
   def author(id:)
     Author.find_by(id: id)
   end
@@ -29,5 +29,36 @@ class Types::QueryType < Types::BaseObject
   def authors
     Author.all
   end
+
+  # --------- PRACTICE ---------
+
+  # user_type.rb
+  field :user, Types::UserType, null: true, description: "Retrieve a User by Id" do
+    argument :id, ID, required: true, description: "A user ID"
+  end
+
+  def user(id:)
+    User.find_by(id: id)
+  end
+
+  # post_type.rb
+  field :post, Types::PostType, null: true, description: "Retrieve a Post by ID" do
+    argument :id, ID, required: true, description: 'A post ID'
+  end
+
+  def post(id:)
+    Post.where(id: id).first
+  end
+
+  # comment_type.rb
+  field :comment, Types::CommentType, null: true, description: "Retrieve a Comment by ID" do
+    argument :id, ID, required: true, description: "A comment ID"
+  end
+
+  def comment(id:)
+    Comment.find_by(id: id)
+  end
+
+  # --------- END PRACTICE ---------
 
 end
