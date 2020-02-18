@@ -17,10 +17,17 @@ class Types::QueryType < Types::BaseObject
     argument :id, ID, required: true
   end
 
-  # field of author with argument ID
+  # Field of author with argument ID (Resolver Method for Author Field)
   def author(id:)
     Author.find_by(id: id)
   end
 
+  # Complex Type for Author Array
+  field :authors, [Types::AuthorType], null: false
+
+  # Resolver method now returns all the authors, instead of one.
+  def authors
+    Author.all
+  end
 
 end

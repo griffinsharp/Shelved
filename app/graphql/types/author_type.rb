@@ -11,10 +11,6 @@ class Types::AuthorType < Types::BaseObject
     field :is_alive, Boolean, null: true
     field :full_name, String, null: true
 
-    # Custom type - Coordinates
-    # Array of two nums like [90, 90]
-    field :coordinates, Types::CoordinatesType, null: false
-
     # Can either define the custom field here (full_name) or on the model (author.rb)
     # Object here refers to the author active record instance
     # Types::CoordinatesType is defined on the Author model (author.rb)
@@ -22,5 +18,16 @@ class Types::AuthorType < Types::BaseObject
     def full_name 
         ([object.first_name, object.last_name].compact).join(" ")
     end
+
+    # Custom type - Coordinates
+    # Array of two nums like [90, 90]
+    field :coordinates, Types::CoordinatesType, null: false
+
+    # Defined a field for the method we made on the model (author.rb)
+    # Type here is an array of integers
+    field :publication_years, [Int], null: false
+    
+
+
 
 end
