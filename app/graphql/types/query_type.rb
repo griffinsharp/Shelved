@@ -12,14 +12,15 @@ class Types::QueryType < Types::BaseObject
     "Hello #{name}!"
   end
 
+  # ROOT FIELD
   field :author, Types::AuthorType, null: true, description: "One author" do
     argument :id, ID, required: true
   end
 
+  # field of author with argument ID
   def author(id:)
     Author.find_by(id: id)
   end
-
 
 
 end
