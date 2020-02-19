@@ -18,12 +18,18 @@ class Types::MutationType < Types::BaseObject
 
   def update_author(author:)
     existing = Author.where(id: author[:id]).first
-
-    if existing.save!
+    if existing && existing.update(author.to_h)
       existing.update(author.to_h)
     end
-    
+  end
 
+  field :delete_author, Boolean, null: false, description: "Delete an Author" do
+    argument :id, ID, required: true
+  end
+
+  def delete_author(id:)
+    Author.where(id: id).destroy_all
+    true
   end
 
 end
