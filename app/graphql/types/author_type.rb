@@ -3,6 +3,8 @@ class Types::AuthorInputType < GraphQL::Schema::InputObject
     graphql_name "AuthorInputType"
     description "All the attributes for author creation"
 
+    # all arguments should not be required so that we can use one input for both creating, updating, etc.
+    argument :id, ID, required: false
     argument :first_name, String, required: false
     argument :last_name, String, required: false
     argument :yob, Int, required: false
