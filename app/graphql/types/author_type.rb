@@ -1,3 +1,15 @@
+class Types::AuthorInputType < GraphQL::Schema::InputObject 
+
+    graphql_name "AuthorInputType"
+    description "All the attributes for author creation"
+
+    argument :first_name, String, required: false
+    argument :last_name, String, required: false
+    argument :yob, Int, required: false
+    argument :is_alive, Boolean, required: false
+
+end
+
 class Types::AuthorType < Types::BaseObject
 
     description "An author"
@@ -27,7 +39,4 @@ class Types::AuthorType < Types::BaseObject
     # Type here is an array of integers
     field :publication_years, [Int], null: false
     
-
-
-
 end

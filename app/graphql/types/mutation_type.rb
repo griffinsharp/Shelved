@@ -1,14 +1,15 @@
 class Types::MutationType < Types::BaseObject
 
   field :create_author, AuthorType, null: true, description: "Create An Author" do
-    argument :first_name, String, required: false
-    argument :last_name, String, required: false
-    argument :yob, Int, required: false
-    argument :is_alive, Boolean, required: false
+    argument :author, Types::AuthorInputType, required: true
   end  
 
-  def create_author(first_name:, last_name:, yob:, is_alive:)
-    Author.create(first_name: first_name, last_name: last_name, yob: yob, is_alive: is_alive)
+  # Convert to hash to align with Rails convention
+  def create_author(author:)
+    Author.create(author.to_h)
   end
+
+  # Alternative way of defining mutation:
+  # field :create_author, Types::AuthorType, mutation: Mutations::CreateAuthor
 
 end
