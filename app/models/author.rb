@@ -1,5 +1,7 @@
 class Author < ApplicationRecord
 
+    validates :first_name, presence: true
+
     def coordinates
         [rand(90), rand(90)]
     end

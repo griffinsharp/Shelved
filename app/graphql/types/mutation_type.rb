@@ -1,5 +1,6 @@
 class Types::MutationType < Types::BaseObject
 
+
   field :create_author, AuthorType, null: true, description: "Create An Author" do
     argument :author, Types::AuthorInputType, required: true
   end  
@@ -31,5 +32,36 @@ class Types::MutationType < Types::BaseObject
     Author.where(id: id).destroy_all
     true
   end
+
+# USER -----
+
+  field :create_user, UserType, null: true, description: "Create a User" do
+    argument :user, Types::UserInputType, required: true
+  end
+
+  def create_user(user:)
+    User.create(user.to_h)
+  end
+
+  field :update_user, Boolean, null: false, description: "Update a User" do 
+    argument :user, Types::UserInputType, required: true
+  end
+
+  def update_user(user:)
+    existing = User.where(id: user[:id]).first
+    if existing && existing.update(user.to_h)
+      existing.update(user.to_h)
+    end
+  end
+
+  field :delete_user, Boolean, null: false, description: "Delete a User" do
+    argument :id, ID, required: true
+  end
+
+  def delete_user(id:)
+    User.where(id: id).destroy_all
+    true
+  end
+
 
 end

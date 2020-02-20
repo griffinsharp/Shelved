@@ -1,3 +1,21 @@
+class Types::UserInputType < GraphQL::Schema::InputObject 
+
+graphql_name "UserInputType"
+description "All the attributes for User creation"
+
+# make sure these are arguments for the input types (not fields)
+# also they are required: false because they are args, not null: true (like fields)
+  argument :id, ID, required: false
+  argument :first_name, String, required: false
+  argument :last_name, String, required: false
+  argument :street, String, required: false
+  argument :number, String, required: false
+  argument :postcode, String, required: false
+  argument :city, String, required: false
+  argument :country, String, required: false
+
+end
+
 class Types::UserType < Types::BaseObject
   description "A User"
 
@@ -6,10 +24,11 @@ class Types::UserType < Types::BaseObject
   field :last_name, String, null: true
   field :street, String, null: true
   field :number, String, null: true
+  field :city, String, null: true
   field :postcode, String, null: true
   field :country, String, null: true
 
-  field :created_at, String, null: false
+  field :created_at, String, null: true
 
   def created_at
     object.created_at.iso8601 # easily parsed by Javascript
