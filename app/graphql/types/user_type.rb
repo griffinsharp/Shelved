@@ -46,6 +46,7 @@ class Types::UserType < Types::BaseObject
     end.compact - ['']).join(', ')
   end
 
+  # additional field because "has_many"
   field :posts, [Types::PostType], null: true, description: "A user's posts"
 
 end

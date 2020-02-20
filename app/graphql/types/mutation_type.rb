@@ -90,6 +90,33 @@ class Types::MutationType < Types::BaseObject
     Post.where(id: id).destroy_all
   end
 
+  field :create_comment, Types::CommentType, null: true, description: "Create a Comment" do 
+    argument :comment, Types::CommentInputType, required: true
+  end
+
+  def create_comment(comment:)
+    Comment.create(comment.to_h)
+  end
+
+  field :update_comment, Boolean, null: false, description: "Update a Comment" do
+    argument :comment, Types::CommentInputType, required: true
+  end
+
+  def update_comment(comment:)
+    existing = Comment.where(id: comment[:id]).first
+    if existing && existing.update(comment.to_h)
+      existing.update(comment.to_h)
+    end
+  end
+
+  field :delete_comment, Boolean, null: false, description: "Delete a Comment" do
+    argument :id, ID, required: true
+  end
+
+  def delete_comment(id:)
+    Comment.where(id: id).destroy_all
+    true
+  end
   
 
 end
