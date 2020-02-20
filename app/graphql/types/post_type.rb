@@ -1,3 +1,15 @@
+class Types::PostInputType < Types::BaseInputObject
+
+graphql_name "PostInputType"
+description "All the attributes for post creation/updating"
+
+argument :id, ID, required: false
+argument :user_id, ID, required: false, description: "The author of the Post"
+argument :body, String, required: true, description: "The contents of the Post"
+
+end
+
+
 class Types::PostType < Types::BaseObject
 
     description "A blog post"

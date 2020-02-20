@@ -63,5 +63,33 @@ class Types::MutationType < Types::BaseObject
     true
   end
 
+  field :create_post, Types::PostType, null: true, description: "Create a Post" do
+    argument :post, Types::PostInputType, required: true
+  end
+
+  def create_post(post:)
+    Post.create(post.to_h)
+  end
+
+  field :update_post, Boolean, null: false, description: "Update a Post" do
+    argument :post, Types::PostInputType, required: true
+  end
+
+  def update_post(post:)
+    existing = Post.where(id: post[:id]).first
+    if existing && existing.update(post.to_h)
+      existing.update(post.to_h)
+    end
+  end
+
+  field :delete_post, Boolean, null: false, description: "Delete a Post" do
+    argument :id, ID, required: true
+  end
+
+  def delete_post(id:)
+    Post.where(id: id).destroy_all
+  end
+
+  
 
 end
