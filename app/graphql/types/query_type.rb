@@ -30,16 +30,29 @@ class Types::QueryType < Types::BaseObject
     Author.all
   end
 
+  field :login, String, null: true, description: "A Login Field" do 
+    argument :email, String, required: true
+    argument :password, String, required: true
+  end
+
+  def login(email:, password:)
+    @user = User.where(email: email).first
+    if (@user && @user.authenticate(password))
+      # user session created / key is returned
+      @user.sessions.create.key
+    end
+  end
+
   # --------- PRACTICE ---------
 
   # user_type.rb
-  field :user, Types::UserType, null: true, description: "Retrieve a User by Id" do
-    argument :id, ID, required: true, description: "A user ID"
-  end
+  # field :user, Types::UserType, null: true, description: "Retrieve a User by Id" do
+  #   argument :id, ID, required: true, description: "A user ID"
+  # end
 
-  def user(id:)
-    User.find_by(id: id)
-  end
+  # def user(id:)
+  #   User.find_by(id: id)
+  # end
 
   # post_type.rb
   field :post, Types::PostType, null: true, description: "Retrieve a Post by ID" do
