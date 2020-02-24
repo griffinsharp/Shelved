@@ -26,19 +26,21 @@ class Types::AuthorType < Types::BaseObject
     field :full_name, String, null: true
 
     # Can either define the custom field here (full_name) or on the model (author.rb)
-    # Object here refers to the author active record instance
+    # Object here refers to the author active record instance (the parent)
+    
     # Types::CoordinatesType is defined on the Author model (author.rb)
 
     def full_name 
         ([object.first_name, object.last_name].compact).join(" ")
     end
 
-    # Custom type - Coordinates
+    # Custom type - Coordinates (COMPLEX TYPES)
     # Array of two nums like [90, 90]
+    # NO RESOLVER - the name of the field matches a method on the model of the same name
     field :coordinates, Types::CoordinatesType, null: false
 
     # Defined a field for the method we made on the model (author.rb)
-    # Type here is an array of integers
+    # Type here is an array of integers (SCALAR VALUES)
     field :publication_years, [Int], null: false
 
     field :errors, [Types::ErrorType], null: true
