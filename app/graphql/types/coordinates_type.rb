@@ -11,4 +11,9 @@ class Types::CoordinatesType < Types::BaseObject
         object.last
     end
 
+    # prevent authors in certain parts of the world scenario
+    def self.authorized?(object, context)
+        object.first > 10 && object.last < 10
+    end
+
 end

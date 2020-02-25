@@ -43,16 +43,29 @@ class Types::QueryType < Types::BaseObject
     end
   end
 
+  field :logout, Boolean, null: false
+
+  def logout
+    Session.where(id: context[:session_id]).destroy_all
+  end
+
   # --------- PRACTICE ---------
 
-  # user_type.rb
-  # field :user, Types::UserType, null: true, description: "Retrieve a User by Id" do
-  #   argument :id, ID, required: true, description: "A user ID"
+  # user - removed for testing/conflicts with practice 
+  # field :user, Types::UserType, null: true, description: "Retrieve a user by ID" do
+  #   argument :id, ID, required: true, description: 'A user id'
   # end
 
   # def user(id:)
-  #   User.find_by(id: id)
+  #   User.where(id: id).first
   # end
+
+  # current_user
+  field :current_user, Types::UserType, null: true, description: "Retrieve a User by Id"
+
+  def current_user
+    context[:current_user]
+  end
 
   # post_type.rb
   field :post, Types::PostType, null: true, description: "Retrieve a Post by ID" do

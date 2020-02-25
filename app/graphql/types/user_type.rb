@@ -27,6 +27,8 @@ class Types::UserType < Types::BaseObject
   field :city, String, null: true
   field :postcode, String, null: true
   field :country, String, null: true
+  field :email, String, null: true
+  field :is_superadmin, Boolean, null: true
 
   field :created_at, String, null: true
 
@@ -53,5 +55,10 @@ class Types::UserType < Types::BaseObject
 
   def errors
     object.errors.map { |e| { field_name: e, errors: object.errors[e] } }
+  end
+
+  # visibility
+  def self.visible?(context)
+    !!context[:current_user]
   end
 end

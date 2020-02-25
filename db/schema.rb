@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_24_223018) do
+ActiveRecord::Schema.define(version: 2020_02_25_035651) do
 
   create_table "authors", force: :cascade do |t|
     t.string "first_name"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 2020_02_24_223018) do
     t.string "email"
     t.string "password_digest"
     t.boolean "is_superadmin"
+    t.string "role"
   end
 
 end
